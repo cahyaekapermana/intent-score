@@ -7,29 +7,34 @@ import android.widget.TextView;
 
 public class ResultActivity extends AppCompatActivity {
 
-    private TextView scoreResult;
-    private TextView theWinner;
+    TextView varResult;
+    TextView varWinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
-        scoreResult = findViewById(R.id.txt_result);
-        theWinner = findViewById(R.id.txt_team);
+        varResult = findViewById(R.id.txt_result);
+        varWinner = findViewById(R.id.txt_winner);
 
         Bundle extras = getIntent().getExtras();
+        // get nilai dari match
+        int homeResult = extras.getInt("homeScore");
+        int awayResult = extras.getInt("awayScore");
+        String txtHomeName = extras.getString("homeName");
+        String txtAwayName = extras.getString("awayName");
 
-        String scoreResultValue = extras.getString("result");
-        String theWinnerValue   = extras.getString("winner");
-
-        if (extras != null){
-
-            scoreResult.setText(scoreResultValue);
-            theWinner.setText(theWinnerValue);
-
+        if(extras != null ){
+            varResult.setText("Final Score : "+String.valueOf(homeResult) + " - " + String.valueOf(awayResult));
+            if(homeResult > awayResult){
+                varWinner.setText("Tim "+txtHomeName + " adalah pemenangnya!");
+            }else if(awayResult > homeResult){
+                varWinner.setText("Tim "+txtAwayName + " adalah pemenangnya!");
+            }else{
+                varWinner.setText("Draw Wkwk");
+            }
         }
-
 
     }
 }
